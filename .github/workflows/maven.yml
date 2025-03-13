@@ -51,4 +51,4 @@ jobs:
             docker rm vipwave-server || true
             docker rmi $(docker images ${{ secrets.DOCKER_REPO }} -q) || true
             docker pull ${{ secrets.DOCKER_REPO }}
-            docker run -d --network docker-network -p 8080 --name vipwave-server ${{ secrets.DOCKER_REPO }}
+            docker run -d --network docker-network -p 8080 --env-file=~/config/.env --name vipwave-server ${{ secrets.DOCKER_REPO }}
