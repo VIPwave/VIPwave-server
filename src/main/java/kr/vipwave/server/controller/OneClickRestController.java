@@ -4,6 +4,7 @@ import kr.vipwave.server.dto.OneClickRequest;
 import kr.vipwave.server.dto.OneClickResponse;
 import kr.vipwave.server.service.OneClickService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/one-click")
@@ -19,6 +21,7 @@ public class OneClickRestController {
 
     @PostMapping
     public ResponseEntity<OneClickResponse> createOneClick(@RequestBody OneClickRequest oneClickRequest) {
+        log.info(oneClickRequest.getPlatformName() + " " + oneClickRequest.getChartType());
         return ResponseEntity.status(HttpStatus.CREATED).body(oneClickService.createOneClick(oneClickRequest));
     }
 
