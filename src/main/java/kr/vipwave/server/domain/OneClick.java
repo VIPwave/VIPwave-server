@@ -2,14 +2,18 @@ package kr.vipwave.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "one_click")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OneClick {
@@ -25,7 +29,7 @@ public class OneClick {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "chart_type", length = 50)
     private ChartType chartType;
-    
+
     @OneToMany(mappedBy = "oneClick")
     private List<Link> links;
 }
