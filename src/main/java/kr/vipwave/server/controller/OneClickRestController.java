@@ -2,10 +2,8 @@ package kr.vipwave.server.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.vipwave.server.dto.OneClickRequest;
 import kr.vipwave.server.dto.OneClickResponse;
 import kr.vipwave.server.dto.RestResponse;
 import kr.vipwave.server.service.OneClickService;
@@ -21,17 +19,6 @@ import java.util.Map;
 @Tag(name = "OneClick Controller", description = "원클릭 링크 API")
 public class OneClickRestController {
     private final OneClickService oneClickService;
-
-    @PostMapping
-    @Operation(summary = "원클릭 링크 생성", description = "원클릭 링크를 생성합니다.")
-    @ApiResponse(
-            responseCode = "201",
-            description = "생성됨"
-    )
-    public RestResponse<OneClickResponse> createOneClick(
-            @RequestBody @Schema(implementation = OneClickRequest.class) OneClickRequest oneClickRequest) {
-        return RestResponse.created(oneClickService.createOneClick(oneClickRequest));
-    }
 
     @Operation(summary = "원클릭 링크 국내/해외별 조회", description = "원클릭 링크를 조회합니다.")
     @ApiResponse(
