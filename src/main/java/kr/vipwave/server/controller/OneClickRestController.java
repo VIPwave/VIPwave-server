@@ -8,35 +8,24 @@ import kr.vipwave.server.dto.OneClickResponse;
 import kr.vipwave.server.dto.RestResponse;
 import kr.vipwave.server.service.OneClickService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/one-click")
+@RequestMapping("/api/v1/one-click")
 @Tag(name = "OneClick Controller", description = "원클릭 링크 API")
 public class OneClickRestController {
     private final OneClickService oneClickService;
 
-    @Operation(summary = "원클릭 링크 국내/해외별 조회", description = "원클릭 링크를 조회합니다.")
-    @ApiResponse(
-            responseCode = "200",
-            description = "성공"
-    )
-    @GetMapping
-    public RestResponse<Map<String, List<OneClickResponse>>> getOncClickByChart(
-            @RequestParam(required = false) @Parameter(description = "국내/해외 타입") String chartType) {
-        return RestResponse.success(oneClickService.getOneClickList(chartType));
-    }
-
-    @Operation(summary = "플랫폼별 원클릭 링크 조회", description = "플랫폼별 원클릭 링크를 조회합니다.")
     @ApiResponse(
             responseCode = "200",
             description = "성공"
     )
     @GetMapping("/{platformId}")
+    @Operation(summary = "플랫폼별 원클릭 링크 조회", description = "플랫폼별 원클릭 링크를 조회합니다.")
     public RestResponse<OneClickResponse> getOncClick(@PathVariable @Parameter(description = "플랫폼 ID") Long platformId) {
         return RestResponse.success(oneClickService.getOneClick(platformId));
     }

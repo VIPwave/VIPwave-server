@@ -37,7 +37,7 @@ public class OneClickResponse {
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
     private LocalDateTime updatedAt;
 
-    public static OneClickResponse fromEntityWithLinks(OneClick oneClick) {
+    public static OneClickResponse fromEntity(OneClick oneClick) {
         Map<DeviceType, List<String>> deviceLinks = oneClick.getLinks().stream()
                 .collect(Collectors.groupingBy(
                         Link::getDeviceType,
@@ -47,19 +47,10 @@ public class OneClickResponse {
         return OneClickResponse.builder()
                 .id(oneClick.getId())
                 .name(oneClick.getPlatform().getName())
-                .chartType(oneClick.getChartType())
+                .chartType(oneClick.getPlatform().getChartType())
                 .logo(oneClick.getPlatform().getLogo())
                 .links(deviceLinks)
                 .updatedAt(oneClick.getUpdatedAt())
-                .build();
-    }
-
-    public static OneClickResponse fromEntity(OneClick oneClick) {
-        return OneClickResponse.builder()
-                .id(oneClick.getId())
-                .name(oneClick.getPlatform().getName())
-                .chartType(oneClick.getChartType())
-                .logo(oneClick.getPlatform().getLogo())
                 .build();
     }
 }
