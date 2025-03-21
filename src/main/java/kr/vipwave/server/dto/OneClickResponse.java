@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import kr.vipwave.server.domain.ChartType;
-import kr.vipwave.server.domain.DeviceType;
-import kr.vipwave.server.domain.Link;
 import kr.vipwave.server.domain.OneClick;
+import kr.vipwave.server.domain.OneClickLink;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -32,17 +30,20 @@ public class OneClickResponse {
     @Schema(description = "원클릭 링크 플랫폼 로고")
     private String logo;
     @Schema(description = "원클릭 링크 리스트")
-    private Map<DeviceType, List<String>> links;
+    private List<OneClickLinkResponse> links;
     @JsonProperty(value = "update_at")
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
     private LocalDateTime updatedAt;
 
     public static OneClickResponse fromEntity(OneClick oneClick) {
-        Map<DeviceType, List<String>> deviceLinks = oneClick.getLinks().stream()
+        List<OneClickLinkResponse> deviceLinks = oneClick.getLinks().stream()
                 .collect(Collectors.groupingBy(
-                        Link::getDeviceType,
-                        Collectors.mapping(Link::getUrl, Collectors.toList())
-                ));
+                        OneClickLink::getDeviceType,
+                        Collectors.mapping(OneClickLink::getUrl, Collectors.toList())
+                ))
+                .entrySet().stream()
+                .map(entry -> new OneClickLinkResponse(entry.getKey(), entry.getValue()))
+                .toList();
 
         return OneClickResponse.builder()
                 .id(oneClick.getId())

@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "one_click")
+@Table(name = "oneclick")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OneClick {
     @Id
@@ -24,8 +24,8 @@ public class OneClick {
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
-    @OneToMany(mappedBy = "oneClick")
-    private List<Link> links;
+    @OneToMany(mappedBy = "oneClick", cascade = CascadeType.ALL)
+    private List<OneClickLink> links;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
