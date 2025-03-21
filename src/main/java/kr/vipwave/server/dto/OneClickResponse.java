@@ -1,5 +1,6 @@
 package kr.vipwave.server.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +34,7 @@ public class OneClickResponse {
     private List<OneClickLinkResponse> links;
     @JsonProperty(value = "update_at")
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime updatedAt;
 
     public static OneClickResponse fromEntity(OneClick oneClick) {
