@@ -13,23 +13,19 @@ import org.hibernate.type.SqlTypes;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "links")
-public class Link {
+@Table(name = "oneclick_links")
+public class OneClickLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    @Column(name = "link_type", length = 50)
-    private LinkType linkType;
-
-    private String url;
 
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "device_type", length = 50)
     private DeviceType deviceType;
+
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "oneclick_id")
