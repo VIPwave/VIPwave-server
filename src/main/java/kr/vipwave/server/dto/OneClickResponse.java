@@ -10,6 +10,7 @@ import kr.vipwave.server.domain.OneClickLink;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,7 @@ public class OneClickResponse {
 
     public static OneClickResponse fromEntity(OneClick oneClick) {
         List<OneClickLinkResponse> deviceLinks = oneClick.getLinks().stream()
+                .sorted(Comparator.comparingInt(OneClickLink::getLinkOrder))
                 .collect(Collectors.groupingBy(
                         OneClickLink::getDeviceType,
                         Collectors.mapping(OneClickLink::getUrl, Collectors.toList())

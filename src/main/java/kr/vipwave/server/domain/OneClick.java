@@ -24,6 +24,7 @@ public class OneClick {
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
+    @OrderBy("linkOrder ASC")
     @OneToMany(mappedBy = "oneClick", cascade = CascadeType.ALL)
     private List<OneClickLink> links;
 
