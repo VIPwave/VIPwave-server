@@ -42,4 +42,14 @@ public class OneClickRestController {
         oneClickService.updateOneClick(id, oneClickLinkRequest);
         return RestResponse.success(oneClickService.getOneClick(id));
     }
+
+    @ApiResponse(
+            responseCode = "200",
+            description = "성공"
+    )
+    @GetMapping
+    @Operation(summary = "원클릭 링크 전체 조회", description = "원클릭 링크를 조회합니다.")
+    public RestResponse<List<OneClickResponse>> getOneClickList() {
+        return RestResponse.success(oneClickService.getOneClickList());
+    }
 }
