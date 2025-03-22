@@ -19,7 +19,6 @@ public class OneClickLink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "device_type", length = 50)
@@ -30,4 +29,7 @@ public class OneClickLink {
     @ManyToOne
     @JoinColumn(name = "oneclick_id")
     private OneClick oneClick;
+
+    @Column(name = "link_order")
+    private Integer linkOrder;
 }

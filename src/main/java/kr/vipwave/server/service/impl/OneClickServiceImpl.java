@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,15 @@ public class OneClickServiceImpl implements OneClickService {
     public OneClickResponse getOneClick(Long platformId) {
         OneClick oneClick = oneClickRepository.findByPlatformId(platformId);
         return OneClickResponse.fromEntity(oneClick);
+    }
+
+    @Override
+    @Transactional
+    public List<OneClickResponse> getOneClickList() {
+        return oneClickRepository.findAll()
+                .stream()
+                .map(OneClickResponse::fromEntity)
+                .toList();
     }
 
     @Override
@@ -49,10 +60,11 @@ public class OneClickServiceImpl implements OneClickService {
 
                 if (!existingUrls.equals(incomingUrls)) {
                     oneClickLinkRepository.deleteByOneClickAndDeviceType(oneClick, type);
-                    List<OneClickLink> newLinks = incomingUrls.stream()
-                            .map(url -> OneClickLink.builder()
+                    List<OneClickLink> newLinks = IntStream.range(1, incomingUrls.size() + 1)
+                            .mapToObj(i -> OneClickLink.builder()
                                     .deviceType(type)
-                                    .url(url)
+                                    .url(incomingUrls.get(i - 1))
+                                    .linkOrder(i)
                                     .oneClick(oneClick)
                                     .build())
                             .toList();
@@ -61,7 +73,7 @@ public class OneClickServiceImpl implements OneClickService {
             }
         }
 
-        oneClick.setUpdatedAt(LocalDateTime.now());
+        oneClick.setUpdatedAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         oneClickRepository.save(oneClick);
     }
 }
