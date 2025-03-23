@@ -28,6 +28,9 @@ public class OneClick {
     @OneToMany(mappedBy = "oneClick", cascade = CascadeType.ALL)
     private List<OneClickLink> links;
 
+    @Column(name = "staff_no")
+    private String staffNo;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
