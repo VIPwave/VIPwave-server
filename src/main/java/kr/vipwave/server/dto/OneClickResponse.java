@@ -33,6 +33,9 @@ public class OneClickResponse {
     private String logo;
     @Schema(description = "원클릭 링크 리스트")
     private List<OneClickLinkResponse> links;
+    @JsonProperty(value = "staff_no")
+    @Schema(description = "업데이트한 스태프 번호")
+    private String staffNo;
     @JsonProperty(value = "update_at")
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
@@ -55,6 +58,7 @@ public class OneClickResponse {
                 .chartType(oneClick.getPlatform().getChartType())
                 .logo(oneClick.getPlatform().getLogo())
                 .links(deviceLinks)
+                .staffNo(oneClick.getStaffNo())
                 .updatedAt(oneClick.getUpdatedAt())
                 .build();
     }

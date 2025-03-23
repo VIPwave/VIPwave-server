@@ -21,7 +21,7 @@ public class PlatformServiceImpl implements PlatformService {
     @Transactional
     public List<PlatformResponse> getPlatformList(String chartType) {
         List<Platform> domestic = new ArrayList<>();
-        List<Platform> foreign = new ArrayList<>();
+        List<Platform> global = new ArrayList<>();
 
         if (chartType == null) {
             return platformRepository.findAll().stream().map(PlatformResponse::fromEntity).toList();
@@ -30,15 +30,15 @@ public class PlatformServiceImpl implements PlatformService {
         if (chartType.equalsIgnoreCase("domestic")) {
             domestic = platformRepository.findByChartType(ChartType.DOMESTIC);
         }
-        if (chartType.equalsIgnoreCase("foreign")) {
-            foreign = platformRepository.findByChartType(ChartType.FOREIGN);
+        if (chartType.equalsIgnoreCase("global")) {
+            global = platformRepository.findByChartType(ChartType.GLOBAL);
         }
 
         if (!domestic.isEmpty()) {
             return domestic.stream().map(PlatformResponse::fromEntity).toList();
         }
-        if (!foreign.isEmpty()) {
-            return foreign.stream().map(PlatformResponse::fromEntity).toList();
+        if (!global.isEmpty()) {
+            return global.stream().map(PlatformResponse::fromEntity).toList();
         }
 
         return null;
