@@ -3,6 +3,7 @@ package kr.vipwave.server.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import kr.vipwave.server.domain.ChartType;
 import kr.vipwave.server.domain.OneClick;
@@ -21,20 +22,22 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "원클릭 링크 생성 응답 DTO")
+@JsonPropertyOrder({"id", "platform", "logo", "chart_type", "links", "staff_no", "updated_at"})
 public class OneClickResponse {
-    @Schema(description = "원클릭 링크 ID")
+    @Schema(description = "플랫폼 ID")
     private Long id;
-    @Schema(description = "원클릭 링크 플랫폼 이름")
+    @JsonProperty(value = "platform")
+    @Schema(description = "플랫폼 이름")
     private String name;
     @JsonProperty(value = "chart_type")
-    @Schema(description = "원클릭 플랫폼 타입")
+    @Schema(description = "국내/해외 차트 타입")
     private ChartType chartType;
-    @Schema(description = "원클릭 링크 플랫폼 로고")
+    @Schema(description = "플랫폼 로고")
     private String logo;
     @Schema(description = "원클릭 링크 리스트")
     private List<OneClickLinkResponse> links;
     @JsonProperty(value = "staff_no")
-    @Schema(description = "업데이트한 스태프 번호")
+    @Schema(description = "업데이트 스태프 번호")
     private String staffNo;
     @JsonProperty(value = "update_at")
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
