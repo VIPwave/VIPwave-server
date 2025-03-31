@@ -2,8 +2,6 @@ package kr.vipwave.server.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Entity
 @Getter
@@ -20,10 +18,4 @@ public class Platform {
     private String name;
 
     private String logo;
-
-    @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    @Column(name = "chart_type", length = 50)
-    private ChartType chartType;
-
 }

@@ -19,7 +19,7 @@ public class PasswordCheckInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String provided = request.getHeader("X-PASSWORD");
+        String provided = request.getHeader("X-ADMIN-CODE");
         if (provided == null || !provided.equals(password)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().write("비밀번호가 일치하지 않습니다.");
