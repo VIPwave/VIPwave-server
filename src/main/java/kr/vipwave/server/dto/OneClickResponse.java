@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.vipwave.server.domain.ChartType;
 import kr.vipwave.server.domain.OneClick;
 import kr.vipwave.server.domain.OneClickLink;
 import lombok.*;
@@ -22,16 +21,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "원클릭 링크 생성 응답 DTO")
-@JsonPropertyOrder({"id", "platform", "logo", "chart_type", "links", "staff_no", "updated_at"})
+@JsonPropertyOrder({"id", "platform", "logo", "links", "staff_no", "updated_at"})
 public class OneClickResponse {
     @Schema(description = "플랫폼 ID")
     private Long id;
     @JsonProperty(value = "platform")
     @Schema(description = "플랫폼 이름")
     private String name;
-    @JsonProperty(value = "chart_type")
-    @Schema(description = "국내/해외 차트 타입")
-    private ChartType chartType;
     @Schema(description = "플랫폼 로고")
     private String logo;
     @Schema(description = "원클릭 링크 리스트")
@@ -58,7 +54,6 @@ public class OneClickResponse {
         return OneClickResponse.builder()
                 .id(oneClick.getId())
                 .name(oneClick.getPlatform().getName())
-                .chartType(oneClick.getPlatform().getChartType())
                 .logo(oneClick.getPlatform().getLogo())
                 .links(deviceLinks)
                 .staffNo(oneClick.getStaffNo())
