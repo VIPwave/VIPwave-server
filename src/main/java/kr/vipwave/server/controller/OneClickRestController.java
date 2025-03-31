@@ -38,8 +38,9 @@ public class OneClickRestController {
     @Operation(summary = "플랫폼별 원클릭 링크 수정", description = "플랫폼별 원클릭 링크를 수정합니다.")
     public RestResponse<OneClickResponse> updateOneClick(
             @PathVariable @Parameter(description = "원클릭 링크 ID") Long id,
+            @RequestHeader(value = "X-STAFF-NO") String staffNo,
             @RequestBody @Parameter(description = "원클릭 링크 수정 리스트") List<OneClickLinkRequest> oneClickLinkRequest) {
-        oneClickService.updateOneClick(id, oneClickLinkRequest);
+        oneClickService.updateOneClick(id, staffNo, oneClickLinkRequest);
         return RestResponse.success(oneClickService.getOneClick(id));
     }
 

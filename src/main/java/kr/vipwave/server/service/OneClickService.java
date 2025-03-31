@@ -10,5 +10,5 @@ public interface OneClickService {
 
     List<OneClickResponse> getOneClickList();
 
-    void updateOneClick(Long id, List<OneClickLinkRequest> oneClickLinkRequest);
+    void updateOneClick(Long id, String staffNo, List<OneClickLinkRequest> oneClickLinkRequest);
 }

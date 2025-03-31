@@ -43,7 +43,7 @@ public class OneClickServiceImpl implements OneClickService {
 
     @Override
     @Transactional
-    public void updateOneClick(Long id, List<OneClickLinkRequest> oneClickLinkRequest) {
+    public void updateOneClick(Long id, String staffNo, List<OneClickLinkRequest> oneClickLinkRequest) {
         OneClick oneClick = oneClickRepository.findById(id).orElseThrow();
         Map<DeviceType, List<OneClickLink>> existingMap = oneClickLinkRepository.findByOneClick(oneClick).stream()
                 .collect(Collectors.groupingBy(OneClickLink::getDeviceType));
@@ -73,6 +73,7 @@ public class OneClickServiceImpl implements OneClickService {
             }
         }
 
+        oneClick.setStaffNo(staffNo);
         oneClick.setUpdatedAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         oneClickRepository.save(oneClick);
     }

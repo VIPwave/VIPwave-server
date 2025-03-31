@@ -18,14 +18,18 @@ public class PasswordCheckInterceptor implements HandlerInterceptor {
         if (!method.equals("PATCH") && !method.equals("DELETE")) {
             return true;
         }
-
+        String staffNo = request.getHeader("X-STAFF-NO");
         String provided = request.getHeader("X-ADMIN-CODE");
         if (provided == null || !provided.equals(password)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().write("비밀번호가 일치하지 않습니다.");
             return false;
         }
-
+        if (staffNo == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("스태프 번호가 필요합니다.");
+            return false;
+        }
         return true;
     }
 }
