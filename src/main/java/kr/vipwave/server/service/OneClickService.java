@@ -1,6 +1,6 @@
 package kr.vipwave.server.service;
 
-import kr.vipwave.server.dto.OneClickLinkRequest;
+import kr.vipwave.server.dto.OneClickRequest;
 import kr.vipwave.server.dto.OneClickResponse;
 
 import java.util.List;
@@ -10,5 +10,5 @@ public interface OneClickService {
 
     List<OneClickResponse> getOneClickList();
 
-    void updateOneClick(Long id, String staffNo, List<OneClickLinkRequest> oneClickLinkRequest);
+    void updateOneClick(Long id, OneClickRequest oneClickRequest);
 }

@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.vipwave.server.dto.OneClickLinkRequest;
+import kr.vipwave.server.dto.OneClickRequest;
 import kr.vipwave.server.dto.OneClickResponse;
 import kr.vipwave.server.dto.RestResponse;
 import kr.vipwave.server.service.OneClickService;
@@ -38,9 +38,8 @@ public class OneClickRestController {
     @Operation(summary = "플랫폼별 원클릭 링크 수정", description = "플랫폼별 원클릭 링크를 수정합니다.")
     public RestResponse<OneClickResponse> updateOneClick(
             @PathVariable @Parameter(description = "원클릭 링크 ID") Long id,
-            @RequestHeader(value = "X-STAFF-NO") String staffNo,
-            @RequestBody @Parameter(description = "원클릭 링크 수정 리스트") List<OneClickLinkRequest> oneClickLinkRequest) {
-        oneClickService.updateOneClick(id, staffNo, oneClickLinkRequest);
+            @RequestBody @Parameter(description = "원클릭 링크 수정 리스트") OneClickRequest oneClickRequest) {
+        oneClickService.updateOneClick(id, oneClickRequest);
         return RestResponse.success(oneClickService.getOneClick(id));
     }
 
