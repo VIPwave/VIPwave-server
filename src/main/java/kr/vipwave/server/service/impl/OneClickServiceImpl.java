@@ -4,6 +4,7 @@ import kr.vipwave.server.domain.DeviceType;
 import kr.vipwave.server.domain.OneClick;
 import kr.vipwave.server.domain.OneClickLink;
 import kr.vipwave.server.dto.OneClickLinkRequest;
+import kr.vipwave.server.dto.OneClickRequest;
 import kr.vipwave.server.dto.OneClickResponse;
 import kr.vipwave.server.repository.OneClickLinkRepository;
 import kr.vipwave.server.repository.OneClickRepository;
@@ -43,12 +44,12 @@ public class OneClickServiceImpl implements OneClickService {
 
     @Override
     @Transactional
-    public void updateOneClick(Long id, String staffNo, List<OneClickLinkRequest> oneClickLinkRequest) {
+    public void updateOneClick(Long id, OneClickRequest oneClickRequest) {
         OneClick oneClick = oneClickRepository.findById(id).orElseThrow();
         Map<DeviceType, List<OneClickLink>> existingMap = oneClickLinkRepository.findByOneClick(oneClick).stream()
                 .collect(Collectors.groupingBy(OneClickLink::getDeviceType));
 
-        for (OneClickLinkRequest update : oneClickLinkRequest) {
+        for (OneClickLinkRequest update : oneClickRequest.getUpdatedList()) {
             DeviceType type = update.getDeviceType();
             List<String> incomingUrls = update.getLinks();
 
@@ -73,7 +74,7 @@ public class OneClickServiceImpl implements OneClickService {
             }
         }
 
-        oneClick.setStaffNo(staffNo);
+        oneClick.setStaffNo(oneClickRequest.getStaffNo());
         oneClick.setUpdatedAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         oneClickRepository.save(oneClick);
     }

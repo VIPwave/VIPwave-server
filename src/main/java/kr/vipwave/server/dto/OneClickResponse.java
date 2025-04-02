@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "원클릭 링크 생성 응답 DTO")
-@JsonPropertyOrder({"id", "platform", "logo", "links", "staff_no", "updated_at"})
+@JsonPropertyOrder({"id", "platform", "logo", "links", "staffNo", "updatedAt"})
 public class OneClickResponse {
     @Schema(description = "플랫폼 ID")
     private Long id;
@@ -32,10 +32,8 @@ public class OneClickResponse {
     private String logo;
     @Schema(description = "원클릭 링크 리스트")
     private List<OneClickLinkResponse> links;
-    @JsonProperty(value = "staff_no")
     @Schema(description = "업데이트 스태프 번호")
     private String staffNo;
-    @JsonProperty(value = "update_at")
     @Schema(description = "원클릭 링크 마지막 업데이트 시간")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime updatedAt;
