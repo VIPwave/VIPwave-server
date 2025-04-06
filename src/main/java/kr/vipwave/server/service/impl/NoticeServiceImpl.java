@@ -3,6 +3,7 @@ package kr.vipwave.server.service.impl;
 import kr.vipwave.server.domain.Notice;
 import kr.vipwave.server.dto.NoticeRequest;
 import kr.vipwave.server.dto.NoticeResponse;
+import kr.vipwave.server.dto.NoticeTitleResponse;
 import kr.vipwave.server.repository.NoticeRepository;
 import kr.vipwave.server.service.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,16 @@ public class NoticeServiceImpl implements NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Override
-    public List<NoticeResponse> getNoticeList() {
+    public List<NoticeTitleResponse> getNoticeList() {
         return noticeRepository.findAllByOrderByNoticeOrderDesc()
                 .stream()
-                .map(NoticeResponse::fromEntity)
+                .map(NoticeTitleResponse::fromEntity)
                 .toList();
+    }
+
+    @Override
+    public NoticeResponse getNoticeById(Long id) {
+        return NoticeResponse.fromEntity(noticeRepository.findById(id).orElse(null));
     }
 
     @Override
