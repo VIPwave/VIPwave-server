@@ -15,7 +15,7 @@ public class PasswordCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String method = request.getMethod();
 
-        if (!method.equals("PATCH") && !method.equals("DELETE")) {
+        if (!method.equals("PATCH") && !method.equals("DELETE") && !method.equals("POST")) {
             return true;
         }
 
