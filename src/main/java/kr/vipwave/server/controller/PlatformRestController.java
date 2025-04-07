@@ -30,6 +30,6 @@ public class PlatformRestController {
     @Operation(summary = "스트리밍 플랫폼 조회", description = "플랫폼을 조회합니다.")
     public RestResponse<List<PlatformResponse>> getPlatformByChart(
             @RequestParam(required = false) @Parameter(description = "국내/해외 타입", example = "domestic") String chartType) {
-        return RestResponse.success(platformService.getPlatformList(chartType));
+        return RestResponse.success(platformService.getPlatformList(chartType), "플랫폼이 성공적으로 조회되었습니다.");
     }
 }

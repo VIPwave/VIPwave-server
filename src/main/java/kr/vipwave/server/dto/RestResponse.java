@@ -14,11 +14,15 @@ public class RestResponse<T> {
     private String message;
     private T data;
 
-    public static <T> RestResponse<T> success(T data) {
-        return new RestResponse<>(200, "성공", data);
+    public static <T> RestResponse<T> success(T data, String message) {
+        return new RestResponse<>(200, message, data);
     }
 
-    public static <T> RestResponse<T> created(T data) {
-        return new RestResponse<>(201, "생성됨", data);
+    public static <T> RestResponse<T> created(T data, String message) {
+        return new RestResponse<>(201, message, data);
+    }
+
+    public static <T> RestResponse<T> noContent() {
+        return new RestResponse<>(204, null, null);
     }
 }

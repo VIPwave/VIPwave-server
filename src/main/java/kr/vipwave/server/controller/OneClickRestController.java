@@ -27,7 +27,7 @@ public class OneClickRestController {
     @GetMapping("/{platformId}")
     @Operation(summary = "플랫폼별 원클릭 링크 조회", description = "플랫폼별 원클릭 링크를 조회합니다.")
     public RestResponse<OneClickResponse> getOneClick(@PathVariable @Parameter(description = "플랫폼 ID") Long platformId) {
-        return RestResponse.success(oneClickService.getOneClick(platformId));
+        return RestResponse.success(oneClickService.getOneClick(platformId), "원클릭 링크가 정상적으로 조회되었습니다.");
     }
 
     @ApiResponse(
@@ -40,7 +40,7 @@ public class OneClickRestController {
             @PathVariable @Parameter(description = "원클릭 링크 ID") Long id,
             @RequestBody @Parameter(description = "원클릭 링크 수정 리스트") OneClickRequest oneClickRequest) {
         oneClickService.updateOneClick(id, oneClickRequest);
-        return RestResponse.success(oneClickService.getOneClick(id));
+        return RestResponse.success(oneClickService.getOneClick(id), "원클릭 링크가 정상적으로 수정되었습니다.");
     }
 
     @ApiResponse(
@@ -50,6 +50,6 @@ public class OneClickRestController {
     @GetMapping
     @Operation(summary = "원클릭 링크 전체 조회", description = "원클릭 링크를 조회합니다.")
     public RestResponse<List<OneClickResponse>> getOneClickList() {
-        return RestResponse.success(oneClickService.getOneClickList());
+        return RestResponse.success(oneClickService.getOneClickList(), "원클릭 링크가 정상적으로 조회되었습니다.");
     }
 }
