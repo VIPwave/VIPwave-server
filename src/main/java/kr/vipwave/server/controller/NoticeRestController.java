@@ -66,4 +66,15 @@ public class NoticeRestController {
     public RestResponse<NoticeResponse> updateNotice(@PathVariable Long id, @RequestBody NoticeRequest noticeRequest) {
         return RestResponse.success(noticeService.updateNotice(id, noticeRequest), "공지사항이 정상적으로 업데이트되었습니다.");
     }
+
+    @DeleteMapping("/{id}")
+    @ApiResponse(
+            responseCode = "200",
+            description = "성공"
+    )
+    @Operation(summary = "공지사항 삭제", description = "공지사항을 삭제합니다.")
+    public RestResponse<Void> deleteNotice(@PathVariable Long id) {
+        noticeService.deleteNotice(id);
+        return RestResponse.success(null, "공지사항이 정상적으로 삭제되었습니다.");
+    }
 }

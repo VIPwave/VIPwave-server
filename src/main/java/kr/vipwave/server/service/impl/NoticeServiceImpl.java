@@ -77,4 +77,11 @@ public class NoticeServiceImpl implements NoticeService {
 
         return NoticeResponse.fromEntity(notice);
     }
+
+    @Override
+    @Transactional
+    public void deleteNotice(Long id) {
+        Notice notice = noticeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 공지사항 ID입니다."));
+        noticeRepository.delete(notice);
+    }
 }
