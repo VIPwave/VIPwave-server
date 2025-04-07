@@ -12,8 +12,8 @@ public class NoticeRequest {
     private String title;
     @Schema(description = "공지사항 내용")
     private String content;
-    @Schema(description = "공지사항 링크")
-    private String url;
     @Schema(description = "공지사항 작성 스태프")
     private String staffNo;
+    @Schema(description = "공지사항 링크")
+    private String url;
 }
