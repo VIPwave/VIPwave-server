@@ -17,4 +17,6 @@ public interface NoticeService {
     List<NoticeResponse> updateNoticeOrder(List<NoticeOrderUpdateRequest> noticeOrderUpdateRequests);
 
     NoticeResponse updateNotice(Long id, NoticeRequest noticeRequest);
+
+    void deleteNotice(Long id);
 }
